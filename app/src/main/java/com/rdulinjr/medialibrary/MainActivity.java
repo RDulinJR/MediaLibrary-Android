@@ -5,16 +5,24 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "test1";
+    private ListView libraryListView;
+    private LibraryDBHandler myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        myDB = new LibraryDBHandler(this);
+        ArrayList library = myDB.getAllMovies();
+        ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, library);
+        libraryListView = (ListView) findViewById(R.id.librarylistview);
+        libraryListView.setAdapter(libraryAdapter);
+        libraryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Not done yet", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

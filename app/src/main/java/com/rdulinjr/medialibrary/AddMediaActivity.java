@@ -1,16 +1,14 @@
 package com.rdulinjr.medialibrary;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +23,8 @@ public class AddMediaActivity extends AppCompatActivity {
     private EditText runtime_editText;
     private EditText genre_editText;
     private EditText actors_editText;
+    private String imageUrl = "";
+    private LibraryDBHandler myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class AddMediaActivity extends AppCompatActivity {
         runtime_editText = (EditText) findViewById(R.id.runtime_editText);
         genre_editText = (EditText) findViewById(R.id.genre_editText);
         actors_editText = (EditText) findViewById(R.id.actors_editText);
+        myDB = new LibraryDBHandler(this);
     }
 
     public void add_SearchClicked(View view) {
@@ -45,7 +46,6 @@ public class AddMediaActivity extends AppCompatActivity {
         String mediaTitle = title_editText.getText().toString();
         mediaTitle = mediaTitle.replace(' ', '+');
         String mediaUrl = "http://www.omdbapi.com/?t=" + mediaTitle + "&y=&plot=short&r=json";
-        String imageUrl = "";
         try {
             // use asynchronous tast to get json from OMDB
             String json = new DownloadMediaInfoTask().execute(mediaUrl).get();
@@ -69,5 +69,21 @@ public class AddMediaActivity extends AppCompatActivity {
         catch(Exception ex)
         {
         }
+    }
+
+    public void add_AddClicked(View view) {
+        // put info in strings for data checking
+        String title = title_editText.getText().toString();
+        String year = year_editText.getText().toString();
+        String runtime = runtime_editText.getText().toString();
+        String genre = genre_editText.getText().toString();
+        String actors = actors_editText.getText().toString();
+        if (myDB.insertMovie(title, year, runtime, genre, actors, imageUrl)) {
+            Toast.makeText(this, title + " Successfully added", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, title + " not added", Toast.LENGTH_SHORT).show();
+        }
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }
