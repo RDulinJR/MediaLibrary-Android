@@ -31,6 +31,7 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // create tables
         String query = "CREATE TABLE " + TABLE_MOVIES + " (" + MOVIES_COLUMN_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + MOVIES_COLUMN_TITLE +
                 " TEXT, " + MOVIES_COLUMN_YEAR + " TEXT, " + MOVIES_COLUMN_RUNTIME +
@@ -41,11 +42,16 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // drop the tables
         String query = "DROP TABLE IF EXISTS " + TABLE_MOVIES;
         db.execSQL(query);
+        // create new ones
+        onCreate(db);
     }
 
     public boolean insertMovie(String title, String year, String runtime, String genre, String actors, String poster) {
+        // get writable database put info in contentvalues then add to database
+        // need error checking
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(MOVIES_COLUMN_TITLE, title);
@@ -61,10 +67,12 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
     public ArrayList<String> getAllMovies() {
         ArrayList<String> array_list = new ArrayList<String>();
 
+        // get readable database get all records
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_MOVIES, null);
         res.moveToFirst();
 
+        //put titles in arraylist
         while (res.isAfterLast() == false) {
             array_list.add(res.getString(res.getColumnIndex(MOVIES_COLUMN_TITLE)));
             res.moveToNext();

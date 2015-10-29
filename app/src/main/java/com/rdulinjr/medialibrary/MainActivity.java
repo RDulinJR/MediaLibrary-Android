@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myDB = new LibraryDBHandler(this);
+        // put the library in arraylist set the adapter so it can be shown in a list
         ArrayList library = myDB.getAllMovies();
         ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, library);
         libraryListView = (ListView) findViewById(R.id.librarylistview);
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void addClicked(View view) {
+        // intent to start add movie activity
         Intent addIntent = new Intent(this, AddMediaActivity.class);
         startActivity(addIntent);
     }

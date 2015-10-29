@@ -22,6 +22,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         String url = urls[0];
         Bitmap myImage = null;
         try {
+            // put inmage in inputstream and convert it to bitmap
             InputStream in = new java.net.URL(url).openStream();
             myImage = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
@@ -32,6 +33,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
+        // set the imageview to the bitmap
         bmImage.setImageBitmap(result);
     }
 }

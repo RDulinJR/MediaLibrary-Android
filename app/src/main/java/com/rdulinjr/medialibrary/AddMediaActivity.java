@@ -47,7 +47,7 @@ public class AddMediaActivity extends AppCompatActivity {
         mediaTitle = mediaTitle.replace(' ', '+');
         String mediaUrl = "http://www.omdbapi.com/?t=" + mediaTitle + "&y=&plot=short&r=json";
         try {
-            // use asynchronous tast to get json from OMDB
+            // use asynchronous task to get json from OMDB
             String json = new DownloadMediaInfoTask().execute(mediaUrl).get();
             JSONObject jsonobject = new JSONObject(json);
             // put the info into the right fields
@@ -60,11 +60,10 @@ public class AddMediaActivity extends AppCompatActivity {
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        // have to get image in asynchronously
-        Log.d(TAG, "Get an Image");
-        // Get an Image
+        // have to get image asynchronously
         try{
             new DownloadImageTask((ImageView) findViewById(R.id.poster)).execute(imageUrl);
+            Log.d(TAG, "Get an Image");
         }
         catch(Exception ex)
         {
@@ -83,6 +82,7 @@ public class AddMediaActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, title + " not added", Toast.LENGTH_SHORT).show();
         }
+        // go back to main activity
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
