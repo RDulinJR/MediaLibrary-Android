@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 public class AddMediaActivity extends AppCompatActivity {
 
-    private final String TAG = "test1";
+    private final String TAG = "addactivity";
     private EditText title_editText;
     private EditText year_editText;
     private EditText runtime_editText;

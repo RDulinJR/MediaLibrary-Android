@@ -42,6 +42,10 @@
             android:label="@string/title_activity_add_media"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name=".DisplayMedia"
+            android:label="@string/title_activity_display_media"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -11,4 +11,5 @@
     <string name="add_search">Search</string>
     <string name="add_add">Add</string>
     <string name="add_title">Title</string>
+    <string name="title_activity_display_media">DisplayMedia</string>
 </resources>

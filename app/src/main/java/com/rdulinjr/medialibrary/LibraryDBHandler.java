@@ -64,6 +64,24 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean updateMovie(int id, String title, String year, String runtime, String genre, String actors, String poster) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MOVIES_COLUMN_TITLE, title);
+        contentValues.put(MOVIES_COLUMN_YEAR, year);
+        contentValues.put(MOVIES_COLUMN_RUNTIME, runtime);
+        contentValues.put(MOVIES_COLUMN_GENRE, genre);
+        contentValues.put(MOVIES_COLUMN_ACTORS, actors);
+        contentValues.put(MOVIES_COLUMN_POSTER, poster);
+        db.update(TABLE_MOVIES, contentValues, MOVIES_COLUMN_ID + " = ? ", new String[]{Integer.toString(id)});
+        return true;
+    }
+
+    public Integer deleteMovie(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_MOVIES, MOVIES_COLUMN_ID + " = ? ", new String[]{Integer.toString(id)});
+    }
+
     public ArrayList<String> getAllMovies() {
         ArrayList<String> array_list = new ArrayList<String>();
 
@@ -78,5 +96,40 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
             res.moveToNext();
         }
         return array_list;
+    }
+
+    public Cursor getData(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_MOVIES + " WHERE " + MOVIES_COLUMN_ID + "= " + id + ";";
+        Cursor rs = db.rawQuery(query, null);
+        return rs;
+    }
+
+    public static String getMoviesColumnActors() {
+        return MOVIES_COLUMN_ACTORS;
+    }
+
+    public static String getMoviesColumnGenre() {
+        return MOVIES_COLUMN_GENRE;
+    }
+
+    public static String getMoviesColumnId() {
+        return MOVIES_COLUMN_ID;
+    }
+
+    public static String getMoviesColumnPoster() {
+        return MOVIES_COLUMN_POSTER;
+    }
+
+    public static String getMoviesColumnRuntime() {
+        return MOVIES_COLUMN_RUNTIME;
+    }
+
+    public static String getMoviesColumnTitle() {
+        return MOVIES_COLUMN_TITLE;
+    }
+
+    public static String getMoviesColumnYear() {
+        return MOVIES_COLUMN_YEAR;
     }
 }

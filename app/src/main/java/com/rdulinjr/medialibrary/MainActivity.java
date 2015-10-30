@@ -40,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
         libraryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Not done yet", Toast.LENGTH_LONG).show();
+                Bundle bundle = new Bundle();
+                // ERROR HERE-- after delete the postion in the list is no longer the id
+                bundle.putInt("id", (position + 1));
+                Intent intent = new Intent(getApplicationContext(), DisplayMedia.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
