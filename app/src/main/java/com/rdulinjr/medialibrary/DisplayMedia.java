@@ -47,7 +47,7 @@ public class DisplayMedia extends AppCompatActivity {
         myDB = new LibraryDBHandler(this);
 
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt("id");
+        id = (int) extras.getLong("id");
         Cursor rs = myDB.getData(id);
         rs.moveToFirst();
         title_editText.setText(rs.getString(rs.getColumnIndex(LibraryDBHandler.getMoviesColumnTitle())));

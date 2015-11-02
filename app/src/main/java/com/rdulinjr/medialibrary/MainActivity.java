@@ -1,12 +1,17 @@
 package com.rdulinjr.medialibrary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,15 +19,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "test1";
     private ListView libraryListView;
     private LibraryDBHandler myDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myDB = new LibraryDBHandler(this);
-        // put the library in arraylist set the adapter so it can be shown in a list
-        ArrayList library = myDB.getAllMovies();
-        ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, library);
+        MovieRowAdapter libraryAdapter = new MovieRowAdapter(this, myDB.getAllMovies(), 0);
         libraryListView = (ListView) findViewById(R.id.librarylistview);
         libraryListView.setAdapter(libraryAdapter);
         libraryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 // ERROR HERE-- after delete the postion in the list is no longer the id
-                bundle.putInt("id", (position + 1));
+                bundle.putLong("id", id);
                 Intent intent = new Intent(getApplicationContext(), DisplayMedia.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

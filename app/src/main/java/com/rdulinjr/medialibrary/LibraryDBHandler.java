@@ -82,20 +82,11 @@ public class LibraryDBHandler extends SQLiteOpenHelper {
         return db.delete(TABLE_MOVIES, MOVIES_COLUMN_ID + " = ? ", new String[]{Integer.toString(id)});
     }
 
-    public ArrayList<String> getAllMovies() {
-        ArrayList<String> array_list = new ArrayList<String>();
-
+    public Cursor getAllMovies() {
         // get readable database get all records
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_MOVIES, null);
-        res.moveToFirst();
-
-        //put titles in arraylist
-        while (res.isAfterLast() == false) {
-            array_list.add(res.getString(res.getColumnIndex(MOVIES_COLUMN_TITLE)));
-            res.moveToNext();
-        }
-        return array_list;
+        return res;
     }
 
     public Cursor getData(int id) {
