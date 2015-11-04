@@ -19,7 +19,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String url = urls[0];
+        String url = "https://image.tmdb.org/t/p/w185" + urls[0];
         Bitmap myImage = null;
         try {
             // put inmage in inputstream and convert it to bitmap
