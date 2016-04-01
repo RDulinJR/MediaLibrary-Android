@@ -11,7 +11,6 @@ import android.widget.TextView;
 public class PageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PAGE = "ARG_PAGE";
-
     private int mPage;
 
     /**
@@ -27,7 +26,7 @@ public class PageFragment extends Fragment {
     }
 
     public PageFragment() {
-        // Required empty public constructor
+        // required empty constructor
     }
 
     @Override
@@ -45,5 +44,4 @@ public class PageFragment extends Fragment {
         textView.setText("Fragment #" + mPage);
         return view;
     }
-
 }

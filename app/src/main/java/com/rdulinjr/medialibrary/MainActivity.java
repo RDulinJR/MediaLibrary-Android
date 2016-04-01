@@ -1,12 +1,20 @@
 package com.rdulinjr.medialibrary;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,8 +28,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // setup viewpager and fragment adapter create fragments
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        mAdapter = new SampleFragmentPagerAdapter(getSupportFragmentManager());
+        mAdapter.addFragment(DisplayCollection.newInstance(1), "Collection");
+        mAdapter.addFragment(PageFragment.newInstance(2), "Page 2");
+        mAdapter.addFragment(PageFragment.newInstance(3), "Page 3");
+
+        mPager.setAdapter(mAdapter);
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -68,5 +82,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

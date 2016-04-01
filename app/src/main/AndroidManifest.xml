@@ -10,10 +10,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +22,7 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/title_activity_about"
-            android:theme="@style/AppTheme" >
+            android:label="@string/title_activity_about">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -34,18 +33,15 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme" >
+            android:label="@string/title_activity_settings">
         </activity>
         <activity
             android:name=".AddMediaActivity"
-            android:label="@string/title_activity_add_media"
-            android:theme="@style/AppTheme" >
+            android:label="@string/title_activity_add_media">
         </activity>
         <activity
             android:name=".DisplayMedia"
-            android:label="@string/title_activity_display_media"
-            android:theme="@style/AppTheme"></activity>
+            android:label="@string/title_activity_display_media"></activity>
     </application>
 
 </manifest>
