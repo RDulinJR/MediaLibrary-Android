@@ -41,7 +41,7 @@ public class PageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
         TextView textView = (TextView) view;
-        textView.setText("Fragment #" + mPage);
+        textView.setText("Fragment #" + mPage + " /m update soon");
         return view;
     }
 }
